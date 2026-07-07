@@ -136,7 +136,11 @@ Generate the JSON array of questions now.`
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
     const vite = await (0, import_vite.createServer)({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: false
+        // Completely disable HMR WebSocket to avoid proxy disconnect crashes
+      },
       appType: "spa"
     });
     app.use(vite.middlewares);

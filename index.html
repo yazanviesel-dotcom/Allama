@@ -4,8 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google AI Studio App</title>
-    <script type="module" crossorigin src="/assets/index-BZyeWWS6.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-SZNSTKMy.css">
+    <script>
+      // Prevent expected benign WebSocket / Vite HMR connection errors from showing as Unhandled Rejections or crashing the UI
+      (function() {
+        const isBenignError = (err) => {
+          const msg = String(err?.message || err?.description || err || '');
+          return /websocket|vite|hmr|closed without opened|closed/i.test(msg);
+        };
+        window.addEventListener('unhandledrejection', function(event) {
+          if (isBenignError(event.reason)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+        window.addEventListener('error', function(event) {
+          if (isBenignError(event.message) || isBenignError(event.error)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }, true);
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-BYKz5JV0.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BZ0FrfKs.css">
   </head>
   <body>
     <div id="root"></div>
